@@ -1,9 +1,7 @@
 <template>
-  <q-page class="row items-center justify-evenly">
+  <q-page class="row justify-evenly">
     <example-component
-      title="Example component"
       active
-      :todos="todos"
       :meta="meta"
       q-r
     ></example-component>
