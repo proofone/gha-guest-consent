@@ -1,0 +1,43 @@
+{
+    "logo_url": "./logos/corinthia.png",
+    "show_settings_button": true,
+    "background_style": {
+        "backgroundColor": "#ffffff",
+        "fontFamily": "proxima_novaregular"
+    },
+    "label_style": {
+        "fontSize": 18,
+        "color": "#b7b7b7",
+        "fontWeight": "normal"
+    },
+    "value_style": {
+        "fontSize": 18,
+        "color": "#b7b7b7",
+        "fontWeight": "bold"
+    },
+    "discovery_style": {
+        "fontSize": 18,
+        "color": "#94009d",
+        "fontWeight": "bold"
+    },
+    "goodnews_style": {
+        "fontSize": 18,
+        "color": "#03b0d8",
+        "fontWeight": "bold"
+    },
+    "badnews_style": {
+        "fontSize": 18,
+        "color": "#e06666",
+        "fontWeight": "bold"
+    },
+    "name_style": {
+        "fontSize": 18,
+        "color": "#330081",
+        "fontWeight": "bold"
+    },
+    "highlight_style": {
+        "fontSize": 28,
+        "color": "#03b0d8 ",
+        "fontWeight": "bold"
+    }
+}

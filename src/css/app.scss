@@ -1,1 +1,23 @@
 // app global css in SCSS form
+
+@font-face {
+    font-family: 'proxima_novaregular';
+    src: url('./assets/fonts/proximanova-regular-webfont.woff2') format('woff2'), url('./assets/fonts/proximanova-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+@font-face {
+font-family: 'proxima_novabold';
+src: url('./assets/fonts/proximanova-bold-webfont.woff2') format('woff2'), url('./assets/fonts/proximanova-bold-webfont.woff') format('woff');
+font-weight: normal;
+font-style: normal;
+}
+
+body {
+    font-family: 'proxima_novaregular';    
+}
+
+.text-bold {
+    font-family: 'proxima_novabold';
+}
