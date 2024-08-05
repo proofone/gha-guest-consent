@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <h3>{{ title }}</h3>
-    <p><q-toggle size="lg" v-model="gaVal" label="GUEST ALLOWS US TO GET IN CONTACT BY EMAIL" /></p>
+  <div class="col-grow col-md-8">
+    <h5>{{ title.toUpperCase() }}</h5> {{ guestId }}
+    <div class="q-my-sm"><q-toggle size="lg" v-model="gaVal" label="GUEST ALLOWS TO BE CONTACTED VIA EMAIL" /></div>
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6">
         <div class="row">
 
           <div class="col-3">LAST NAME:</div>
@@ -17,7 +17,7 @@
         </div>
 
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
 
       </div>
     </div>
@@ -27,6 +27,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { Meta, GuestData } from './models';
+import { useRoute } from 'vue-router';
 
 interface Props {
   title?: string;
@@ -41,8 +42,10 @@ const props = ref({
   guestAllows: () => false,
 });
 
+const route = useRoute()
+const guestId = route.params.riid
 let gaVal = ref(false)
-const title = computed(() => gaVal ? "Guest Consent" : "Guest does not consent")
+const title = computed(() => gaVal.value ? "Guest Consent" : "Guest does not consent")
 
 //const guestAllowsChange = (event) => {props.guestAllows = e.target.value}
 const clickCount = ref(0);

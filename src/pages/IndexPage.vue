@@ -1,44 +1,25 @@
 <template>
-  <q-page class="row justify-evenly">
-    <example-component
-      active
-      :meta="meta"
-      q-r
-    ></example-component>
+  <q-page class="row justify-center">
+    <div class="col-md-8">
+      <h5>Home</h5>
+      <div>Try these examples:</div>
+      <q-list bordered separator>
+        <q-item><q-item-section>Example 1</q-item-section></q-item>
+        <q-item to="/guests/3306938825"><q-item-section>Example 2</q-item-section></q-item>
+        <q-item><q-item-section>Example 3</q-item-section></q-item>
+      </q-list>
+    </div>
   </q-page>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Todo, Meta } from 'components/models';
+import { Meta } from 'components/models';
 import ExampleComponent from 'components/ExampleComponent.vue';
 
 defineOptions({
   name: 'IndexPage'
 });
-
-const todos = ref<Todo[]>([
-  {
-    id: 1,
-    content: 'ct1'
-  },
-  {
-    id: 2,
-    content: 'ct2'
-  },
-  {
-    id: 3,
-    content: 'ct3'
-  },
-  {
-    id: 4,
-    content: 'ct4'
-  },
-  {
-    id: 5,
-    content: 'ct5'
-  }
-]);
 
 const meta = ref<Meta>({
   totalCount: 1200
