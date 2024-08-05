@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh Lpr lFf">
-    <q-header>
+    <q-header class="bg-secondary">
       <q-toolbar>
         <q-btn
           flat
@@ -11,9 +11,9 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title>Guest Consent</q-toolbar-title>
+        <q-toolbar-title>Guest Consent <q-badge color="orange" text-color="black" align="top">demo</q-badge></q-toolbar-title>
 
-        <div>
+        <div class="gt-sm" style="font-size: small;">
           Quasar v{{ $q.version }}
           
         </div>
