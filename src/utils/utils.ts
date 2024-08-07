@@ -1,11 +1,11 @@
 import { GuestData, GuestDataRetVal } from "../components/models"
+import testData from "../../tests/test_data_users.json"
 
 export async function fetchGuestData(profileId: string, mock: boolean = false): Promise<GuestDataRetVal|undefined> {
     let retVal: GuestDataRetVal = {data: null, success: false, error: null}
     
     if (mock) {
-        const testData = require("../../tests/test_data_users.json")
-        const customerDataArr = testData?.customersData.filter((c: GuestData) => {c.RIID_ === profileId})
+        const customerDataArr = testData?.customersData.filter((c: GuestData) => c.RIID_ === profileId)
         customerDataArr.at(0) ? retVal.data = customerDataArr.at(0) : retVal.error = "Customer data not found"
 
     } else if (process.env.API_URL) {

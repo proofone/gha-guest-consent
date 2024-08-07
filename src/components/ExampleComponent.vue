@@ -1,33 +1,21 @@
 <template>
-  <div class="col-grow col-md-8">
-    <h5>{{ title.toUpperCase() }}</h5> {{ guestId }}
-    <div class="q-my-sm"><q-toggle size="lg" v-model="gaVal" label="GUEST ALLOWS TO BE CONTACTED VIA EMAIL" /></div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="row">
-
-          <div class="col-3">LAST NAME:</div>
-          <div class="col-3">{{ guestData?.LAST_NAME }}</div>
-          <div class="col-3">EMAIL ADDRESS:</div>
-          <div class="col-3">{{ guestData?.EMAIL_ADDRESS_ }}</div>
-          <div class="col-3">FIRST NAME:</div>
-          <div class="col-3">{{ guestData?.FIRST_NAME }}</div>
-          <div class="col-3">EMAIL STATUS:</div>
-          <div class="col-3">{{ guestData?.EMAIL_DELIVERABILITY_STATUS_ }}</div>
-        </div>
-
-      </div>
-      <div class="col-md-6">
-
-      </div>
+  <q-spinner-dots v-if="props.gdLoading" size="lg" color="primary" class="items-center q-my-lg"/>
+  <div v-else-if="props.guestData" class="col-grow col-md-8">
+    <h5>{{ title.toUpperCase() }}</h5>
+    <div class="q-my-sm">
+      <q-toggle size="lg" v-model="props.guestAllows" label="GUEST ALLOWS TO BE CONTACTED VIA EMAIL" />
     </div>
+    <GuestDetails :data="props.guestData"/>
   </div>
+  <div v-else-if="props.gdError" class="text-negative">{{ props.gdError }}</div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { Meta, GuestData } from './models';
 import { useRoute } from 'vue-router';
+import GuestDetails from './GuestDetails.vue'
+import { fetchGuestData } from 'src/utils/utils';
 
 interface Props {
   title?: string;
@@ -38,14 +26,31 @@ interface Props {
 };
 
 const props = ref({
-  guestData: {},
-  guestAllows: () => false,
+  guestData: null,
+  gdError: null,
+  gdLoading: false,
+  guestAllows: false,
 });
 
 const route = useRoute()
 const guestId = route.params.riid
-let gaVal = ref(false)
-const title = computed(() => gaVal.value ? "Guest Consent" : "Guest does not consent")
+const loading = ref(false)
+let error = ref("null")
+let guestdata = null
+
+onMounted(async () => {
+  props.value.gdLoading = true
+  fetchGuestData(guestId, process.env.NODE_ENV === 'development')
+    .then(({data, success, error}) => {
+      props.value.gdError = error
+      props.value.guestData = data
+      props.value.gdLoading = false
+      console.log(`Succ: ${success} Err: ${error}`)
+    })
+})
+
+const title = computed(() => props.value.guestAllows ? "Guest Consent" : "Guest does not consent")
+
 
 //const guestAllowsChange = (event) => {props.guestAllows = e.target.value}
 const clickCount = ref(0);

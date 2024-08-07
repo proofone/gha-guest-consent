@@ -1,35 +1,32 @@
 <template>
-  <q-layout view="hHh Lpr lFf">
+  <q-layout view="hHh Lpr lFr">
     <q-header class="bg-secondary">
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
+        <q-btn flat dense round icon="menu" aria-label="Menu"
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title>Guest Consent <q-badge color="orange" text-color="black" align="top">demo</q-badge></q-toolbar-title>
+        <q-toolbar-title><q-btn flat no-caps size="lg" to="/">Guest Consent</q-btn>
+           <q-badge color="orange" text-color="black">demo</q-badge>
+        </q-toolbar-title>
 
-        <div class="gt-sm" style="font-size: small;">
+        <div class="gt-sm q-mr-sm" style="font-size: small;">
           Quasar v{{ $q.version }}
-          
         </div>
-        <q-avatar class="q-ml-sm"><img src="~assets/images/transparent_weblogo_pushkar.png" size="5vh" alt="logo"/></q-avatar>
+        <q-btn flat dense round aria-label="Settings"
+          @click="toggleRightDrawer">
+          <q-avatar><img src="~assets/images/transparent_weblogo_pushkar.png" size="5vh" alt="logo"/></q-avatar>
+        </q-btn>
+
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      bordered
-    >
+    <q-drawer v-model="leftDrawerOpen" bordered>
       <q-list>
         <q-item-label
           header
         >
-          Essential Links
+          Quasar Links (to be removed in production...)
         </q-item-label>
 
         <EssentialLink
@@ -39,15 +36,40 @@
         />
       </q-list>
     </q-drawer>
-
-    <q-page-container>
+    <q-drawer v-model="rightDrawerOpen" side="right" bordered>
+      <q-list>
+        <q-item-label header>Settings</q-item-label>
+        <q-item>
+          <q-item-section>
+            <q-item-label overline>Primary color</q-item-label>
+            <q-item-label>
+              <q-color no-header-tabs
+                v-model="styleSettings.colors.primary"
+                />
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item class="q-my-xl q-py-md">
+          <q-item-section>
+            <q-item-label overline>Secondary color</q-item-label>
+            <q-item-label>
+              <q-color no-header-tabs
+                v-model="styleSettings.colors.secondary"
+                />
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </q-drawer>
+    <q-page-container class="q-px-sm">
       <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, reactive, ref, watch } from 'vue';
+import { getCssVar, setCssVar } from 'quasar';
 import EssentialLink, { EssentialLinkProps } from 'components/EssentialLink.vue';
 
 defineOptions({
@@ -100,8 +122,29 @@ const linksList: EssentialLinkProps[] = [
 ];
 
 const leftDrawerOpen = ref(false);
+const rightDrawerOpen = ref(false);
+
+const styleSettings = reactive({
+  colors: {
+    primary: getCssVar('primary'),
+    secondary: getCssVar('secondary'),
+  }
+})
+watch(styleSettings,
+  (value, oldvalue) => {
+    for (const [key, val] of Object.entries(value.colors)) {
+      setCssVar(key, val)
+    }
+  }
+)
 
 function toggleLeftDrawer () {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
+function toggleRightDrawer () {
+  rightDrawerOpen.value = !rightDrawerOpen.value;
+}
+
+onMounted(()=> console.log("mounted, primary:" + styleSettings.colors.primary)
+)
 </script>
