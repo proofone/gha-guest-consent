@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row justify-center">
     <div class="col-md-6">
       <div class="row">				
         <div class="col-5">LAST NAME:</div>
@@ -16,6 +16,10 @@
     <div class="col-md-6">
       
     </div>
+    <div class="col-auto q-my-md">
+      <q-btn label="Save" color="primary" />
+    </div>
+
   </div>
 </template>
 

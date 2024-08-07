@@ -38,7 +38,7 @@
     </q-drawer>
     <q-drawer v-model="rightDrawerOpen" side="right" bordered>
       <q-list>
-        <q-item-label header>Settings</q-item-label>
+        <q-item-label header>Settings <q-btn icon="save" /></q-item-label>
         <q-item>
           <q-item-section>
             <q-item-label overline>Primary color</q-item-label>
