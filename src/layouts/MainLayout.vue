@@ -37,28 +37,29 @@
       </q-list>
     </q-drawer>
     <q-drawer v-model="rightDrawerOpen" side="right" bordered>
+      <q-toolbar>
+        <q-toolbar-title>Settings</q-toolbar-title>
+        <q-btn icon="save" flat/>
+      </q-toolbar>
       <q-list>
-        <q-item-label header>Settings <q-btn icon="save" /></q-item-label>
-        <q-item>
+        <q-expansion-item label="Primary color" icon="square" class="text-primary">
           <q-item-section>
-            <q-item-label overline>Primary color</q-item-label>
             <q-item-label>
               <q-color no-header-tabs
                 v-model="styleSettings.colors.primary"
                 />
             </q-item-label>
           </q-item-section>
-        </q-item>
-        <q-item class="q-my-xl q-py-md">
+        </q-expansion-item>
+        <q-expansion-item label="Secondary color" icon="square" class="text-secondary">
           <q-item-section>
-            <q-item-label overline>Secondary color</q-item-label>
             <q-item-label>
               <q-color no-header-tabs
                 v-model="styleSettings.colors.secondary"
                 />
             </q-item-label>
           </q-item-section>
-        </q-item>
+        </q-expansion-item>
       </q-list>
     </q-drawer>
     <q-page-container class="q-px-sm">
